@@ -1,0 +1,8 @@
+pandas
+numpy
+python-dotenv
+tabulate
+openpyxl
+matplotlib
+plotly
+streamlit
