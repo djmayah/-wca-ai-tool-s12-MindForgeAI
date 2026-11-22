@@ -1,6 +1,6 @@
 import re
-from models import Transaction
-from categorizer import auto_categorize
+from .models import Transaction
+from .categorizer import auto_categorize
 
 def parse_mpesa_sms(sms_text):
     tx_id_match = re.search(r"^([A-Z0-9]{10})\s+Confirmed", sms_text.strip())

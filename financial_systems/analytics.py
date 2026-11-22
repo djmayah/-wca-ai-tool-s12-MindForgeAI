@@ -1,4 +1,4 @@
-from config import CURRENCY
+from .config import CURRENCY
 
 def calculate_metrics(expenses):
     if not expenses:

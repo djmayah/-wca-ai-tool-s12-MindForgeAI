@@ -1,6 +1,6 @@
 import json
 import os
-from config import DATA_FILE
+from .config import DATA_FILE
 
 def load_expenses():
     if os.path.exists(DATA_FILE):
