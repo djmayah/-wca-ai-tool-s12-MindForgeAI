@@ -1,0 +1,28 @@
+{
+    "date": "2026-11-24 10:00:00",
+    "expenses": [
+        {
+            "amount": 250,
+            "category": "Food",
+            "description": "Lunch",
+            "date": "2026-11-24 09:00:00"
+        },
+        {
+            "amount": 150,
+            "category": "Transport",
+            "description": "Matatu fare",
+            "date": "2026-11-24 09:30:00"
+        }
+    ],
+    "conversation": [
+        {
+            "role": "user",
+            "content": "How can I reduce my daily spending?"
+        },
+        {
+            "role": "assistant",
+            "content": "Review your daily food and transport expenses to identify where you can save."
+        }
+    ],
+    "summary": "The user discussed reducing daily spending. MINDFORGE recommended reviewing food and transport costs and identifying practical savings."
+}

@@ -1,4 +1,17 @@
+cat > .gitignore <<'EOF'
 .env
+**/.env
 venv/
+**/venv/
 __pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
 .DS_Store
+sessions/
+**/sessions/
+expenses.json
+**/expenses.json
+*.save
+*.save.*
+EOF
