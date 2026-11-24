@@ -71,6 +71,25 @@ Never upload your `.env` file or expose your API key.
 - Wil – Application development and integration
 - Dan – Financial systems, expense management and M-PESA SMS processing
 - Mayah – GitHub repository management and AI integration
+## Individual Contributions
+
+### Wilford Eshikumo – Application Development and Integration Lead
+- Led development and integration of the main MINDFORGE application.
+- Worked on the main application menu and user interaction flow.
+- Integrated expense management with the AI assistant.
+- Connected the application to financial systems, analytics and session management.
+- Contributed to application testing, debugging and overall functionality.
+
+### Dan – Financial Systems Development
+- Developed financial management components.
+- Worked on M-PESA SMS parsing and transaction processing.
+- Contributed to expense categorisation and financial analytics.
+
+### Mayah – AI Integration and Repository Management
+- Worked on AI integration and prompt development.
+- Managed GitHub repository coordination.
+- Contributed to project integration and collaboration.
+
 
 ## Security
 API credentials are stored in environment variables and excluded from version control.
