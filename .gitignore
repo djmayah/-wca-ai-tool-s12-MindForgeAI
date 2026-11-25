@@ -1,20 +1,32 @@
-# Environment variables
+# Environment variables and secrets
 .env
+.env.*
+**/.env
+**/.env.*
 
-# Python virtual environment
+# Python virtual environments
 venv/
+.venv/
 
-# Python cache files
+# Python cache
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
 
 # Operating system files
 .DS_Store
 
+# Testing cache
+.pytest_cache/
+
+# VS Code settings
+.vscode/
+
 # Application data
-sessions/
 expenses.json
+mindforge_expenses.json
+sessions/
+Mindforge-Development/expenses.json
+Mindforge-Development/sessions/
 
 # Backup files
 *.save

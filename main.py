@@ -1,126 +1,159 @@
-import json
-import os
 # ==========================================
-# MINDFORGE
-# M-PESA EXPENSE COACH
+# MINDFORGE - M-PESA EXPENSE COACH
 # Main Python Application
 # ==========================================
 
-# Store all expenses in a list
-expenses = []
-DATA_FILE = "expenses.json"
+from datetime import datetime
+
+# Dan's financial systems modules (parsing, storage, analytics)
+from financial_systems.sms_parser import parse_mpesa_sms
+from financial_systems.storage import (
+    load_expenses,
+    save_expenses,
+    is_duplicate
+)
+from financial_systems.analytics import print_financial_report
+
+# Mayah's AI module (Claude insights)
+from ai_engine.financial_advisor import generate_financial_insights
 
 
-def load_expenses():
-    global expenses
-
-    if os.path.exists(DATA_FILE):
-        try:
-            with open(DATA_FILE, "r") as file:
-                expenses = json.load(file)
-        except (json.JSONDecodeError, OSError):
-            expenses = []
-    else:
-        expenses = []
-
-load_expenses()
-
-def save_expenses():
-    with open(DATA_FILE, "w") as file:
-        json.dump(expenses, file, indent=4)
+# ---------- MENU ----------
+def display_menu():
+    print("\n" + "=" * 50)
+    print("       MINDFORGE AI")
+    print("  PERSONAL FINANCIAL INTELLIGENCE")
+    print("=" * 50)
+    print("1. Import M-Pesa SMS transaction")
+    print("2. Record expense manually")
+    print("3. View financial report")
+    print("4. Generate AI financial insights")
+    print("5. Exit")
+    print("=" * 50)
 
 
-# Function to record a new expense
+# ---------- IMPORT FROM SMS (Dan) ----------
+def import_mpesa_transaction():
+    sms = input("\nPaste your M-Pesa confirmation SMS:\n").strip()
+
+    # Handle empty input
+    if not sms:
+        print("\nNo SMS entered.")
+        return
+
+    transaction = parse_mpesa_sms(sms)
+
+    if transaction is None:
+        print("\nUnable to recognise this SMS format.")
+        return
+
+    expenses = load_expenses()
+
+    # Skip transactions that were already imported
+    if is_duplicate(expenses, transaction.tx_id):
+        print("\nThis transaction already exists.")
+        return
+
+    expenses.append(transaction.to_dict())
+    save_expenses(expenses)
+
+    print("\nTransaction successfully imported!")
+    print(f"Transaction ID: {transaction.tx_id}")
+    print(f"Description: {transaction.description}")
+    print(f"Amount: KSh {transaction.amount:,.2f}")
+    print(f"Transaction fee: KSh {transaction.tx_cost:,.2f}")
+    print(f"Category: {transaction.category}")
+
+
+# ---------- MANUAL ENTRY (Will, adapted to Dan's storage) ----------
 def record_expense():
-
     print("\n--- RECORD EXPENSE ---")
 
-    description = input("What did you spend money on? ")
+    description = input("What did you spend money on? ").strip()
+    if not description:
+        print("Description cannot be empty.")
+        return
 
     try:
         amount = float(input("Enter amount in KSh: "))
-
-        if amount <= 0:
-            print("Amount must be greater than zero.")
-            return
-
-        category = input("Enter expense category: ")
-
-        expense = {
-            "description": description,
-            "amount": amount,
-            "category": category
-        }
-
-        expenses.append(expense)
-
-        print("\nExpense recorded successfully!")
-
     except ValueError:
         print("Please enter a valid amount.")
-
-
-# Function to display all expenses
-def view_expenses():
-
-    print("\n--- YOUR EXPENSES ---")
-
-    if not expenses:
-        print("No expenses recorded yet.")
         return
 
-    for expense in expenses:
-        print(
-            f"{expense['description']} - "
-            f"KSh {expense['amount']:.2f} - "
-            f"{expense['category']}"
-        )
+    if amount <= 0:
+        print("Amount must be greater than zero.")
+        return
+
+    category = input("Enter expense category: ").strip() or "Other"
+
+    # Use the same fields as imported SMS transactions so the
+    # report and AI insights treat both kinds of record the same way
+    expense = {
+        "tx_id": "MANUAL-" + datetime.now().strftime("%Y%m%d%H%M%S"),
+        "description": description,
+        "amount": amount,
+        "tx_cost": 0.0,
+        "category": category,
+    }
+
+    expenses = load_expenses()
+    expenses.append(expense)
+    save_expenses(expenses)
+
+    print("\nExpense recorded successfully!")
 
 
-# Function to calculate total spending
-def calculate_total():
+# ---------- FINANCIAL REPORT (Dan) ----------
+def view_financial_report():
+    expenses = load_expenses()
+    print_financial_report(expenses)
 
-    total = 0
 
-    for expense in expenses:
-        total += expense["amount"]
+# ---------- AI INSIGHTS (Mayah) ----------
+def generate_ai_report():
+    expenses = load_expenses()
 
-    print(f"\nTotal spending: KSh {total:.2f}")
+    if not expenses:
+        print("\nNo financial records available.")
+        return
 
-load_expenses()
-# Main application menu
+    print("\nGenerating AI financial insights...")
+    print("Connecting to Claude...")
+
+    try:
+        insights = generate_financial_insights(expenses)
+
+        print("\n" + "=" * 50)
+        print("MINDFORGE AI FINANCIAL INTELLIGENCE")
+        print("=" * 50)
+        print(insights)
+
+    except Exception as error:
+        print("\nUnable to generate AI insights.")
+        print(f"Error: {error}")
+
+
+# ---------- MAIN LOOP ----------
 def main():
-
     while True:
+        display_menu()
 
-        print("\n==============================")
-        print(" MINDFORGE - M-PESA EXPENSE COACH")
-        print("==============================")
-
-        print("1. Record expense")
-        print("2. View expenses")
-        print("3. Calculate total")
-        print("4. Exit")
-
-        choice = input("\nChoose an option: ")
+        choice = input("Select an option (1-5): ").strip()
 
         if choice == "1":
-            record_expense()
-
+            import_mpesa_transaction()
         elif choice == "2":
-            view_expenses()
-
+            record_expense()
         elif choice == "3":
-            calculate_total()
-
+            view_financial_report()
         elif choice == "4":
-            print("Thank you for using Mindforge!")
+            generate_ai_report()
+        elif choice == "5":
+            print("\nThank you for using MindForge AI.")
             break
-
         else:
-            print("Invalid choice. Try again.")
+            print("\nInvalid selection. Please choose 1, 2, 3, 4 or 5.")
 
 
-# Start the application
 if __name__ == "__main__":
     main()
