@@ -149,6 +149,11 @@ def main():
                     print("\nAI response error:", error)
 
         elif choice == "7":
+            # Nothing to save if no AI conversation has happened yet
+            if not current_session["conversation"]:
+                print("Nothing to save yet. Ask the AI something first (option 6).")
+                continue
+
             try:
                 current_session["summary"] = generate_summary(
                     current_session["conversation"]
@@ -190,6 +195,7 @@ def main():
                 print(index, filename)
 
             try:
+
                 selection = int(
                     input("\nEnter session number to open: ")
                 )
