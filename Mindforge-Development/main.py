@@ -1,3 +1,4 @@
+import json
 import os
 
 from conversation import add_message, get_history, clear_history
@@ -114,7 +115,13 @@ def main():
                     f"Recommendation: {response['recommendation']}"
                 )
 
-                add_message("assistant", assistant_content)
+                                # Store the raw JSON in the history sent to Claude, so it
+                # keeps replying in JSON. The readable text is only used
+                # for the saved session file.
+                add_message("assistant", json.dumps({
+                    "advice": response["advice"],
+                    "recommendation": response["recommendation"]
+                }))
 
                 current_session["conversation"].append({
                     "role": "assistant",

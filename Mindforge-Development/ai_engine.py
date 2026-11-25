@@ -72,7 +72,7 @@ def ask_claude(question, conversation_history=None, expenses=None):
     for attempt in range(2):
         response = client.messages.create(
             model=MODEL,
-            max_tokens=500,
+            max_tokens=800,
             system=system_prompt,
             messages=messages
         )
@@ -109,7 +109,7 @@ def generate_summary(conversation_history):
 
     response = client.messages.create(
         model=MODEL,
-        max_tokens=500,
+        max_tokens=1500,
         system=SUMMARY_PROMPT,
         messages=[
             {
