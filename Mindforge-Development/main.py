@@ -134,8 +134,19 @@ def main():
 
                 print("\nConversation messages:", len(get_history()))
 
-            except (KeyError, TypeError, ValueError) as error:
-                print("AI response error:", error)
+            except Exception as error:
+                # Covers no internet, a bad API key, or JSON that failed
+                # the check after the retry. The program must not crash.
+                # Remove the failed question from both lists so the user
+                # can try again without a broken history.
+                get_history().pop()
+                current_session["conversation"].pop()
+
+                if "Connection" in type(error).__name__:
+                    print("\nCould not reach the AI. Check your internet "
+                          "connection and try again.")
+                else:
+                    print("\nAI response error:", error)
 
         elif choice == "7":
             try:
@@ -152,7 +163,8 @@ def main():
                 print("JSON file:", json_file)
                 print("Markdown file:", markdown_file)
 
-            except (OSError, KeyError, TypeError, ValueError) as error:
+            except Exception as error:
+                # Covers a failed summary call as well as file errors
                 print("Could not save session:", error)
 
         elif choice == "8":
