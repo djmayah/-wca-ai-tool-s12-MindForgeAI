@@ -1,6 +1,6 @@
 # MindForge AI: M-Pesa Expense Coach
 
-**Group:** [MindForgeAi]
+**Group:** MindForgeAI
 **Members:**
 - Wilford (Will): Application Development Lead
 - Mayah: AI Integration Lead
