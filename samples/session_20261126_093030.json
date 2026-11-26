@@ -1,0 +1,39 @@
+{
+    "date": "2026-11-26 09:26:45",
+    "expenses": [],
+    "conversation": [
+        {
+            "role": "user",
+            "content": "I spent 200 on a matatu"
+        },
+        {
+            "role": "assistant",
+            "content": "Advice: Noted! You've spent KSh 200 on transport (matatu) so far. I'll keep track of this as your running transport total.\nRecommendation: Try noting down each matatu fare daily so you can spot patterns in your weekly transport costs."
+        },
+        {
+            "role": "user",
+            "content": "Lunch was 350"
+        },
+        {
+            "role": "assistant",
+            "content": "Advice: Got it! You've now spent KSh 350 on food (lunch) and KSh 200 on transport, bringing your total spending so far to KSh 550.\nRecommendation: Consider carrying lunch from home a few days a week to reduce your food expenses."
+        },
+        {
+            "role": "user",
+            "content": "Bought 100 airtime"
+        },
+        {
+            "role": "assistant",
+            "content": "Advice: Added! You've now spent KSh 100 on airtime. Your total spending so far is: Transport KSh 200, Food KSh 350, Airtime KSh 100 \u2014 overall KSh 650.\nRecommendation: Check if your network offers data/airtime bundles, as they're often cheaper than buying airtime as needed."
+        },
+        {
+            "role": "user",
+            "content": "How much have I spent on transport so far?"
+        },
+        {
+            "role": "assistant",
+            "content": "Advice: So far, you've spent KSh 200 on transport \u2014 that's from the matatu fare you mentioned earlier.\nRecommendation: Keep logging each transport expense as it happens so your running total stays accurate."
+        }
+    ],
+    "summary": "Spending by category:\nTransport: KSh 200\nFood: KSh 350\nAirtime: KSh 100\n\nGrand total: KSh 650\n\nThree ways to save:\n1. Pack lunch from home a few days a week instead of buying it, to cut down your KSh 350 food spend.\n2. Buy airtime or data in bundles rather than as-needed, since bundles are usually cheaper than your KSh 100 one-off purchase.\n3. Track matatu fares daily and look for routes or times with lower fares, or consider walking short distances to reduce your KSh 200 transport cost."
+}
