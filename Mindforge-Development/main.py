@@ -246,7 +246,7 @@ def main():
                 print("Could not display session:", error)
 
         elif choice == "9":
-            sms_text = input("\\nPaste the complete M-PESA confirmation SMS:\\n").strip()
+            sms_text = input("\nPaste the complete M-PESA confirmation SMS:\n").strip()
 
             transaction = parse_mpesa_sms(sms_text)
 
@@ -278,9 +278,9 @@ def main():
         elif choice == "11":
             try:
                 expenses = view_expenses()
-                print("\\nGenerating MINDFORGE financial insights...")
+                print("\nGenerating MINDFORGE financial insights...")
                 insights = generate_financial_insights(expenses)
-                print("\\nMINDFORGE FINANCIAL INSIGHTS")
+                print("\nMINDFORGE FINANCIAL INSIGHTS")
                 print(insights)
 
             except Exception as error:
